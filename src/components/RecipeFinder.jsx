@@ -66,7 +66,7 @@ export default function RecipeFinder() {
                                 className="bg-white p-4 rounded-lg shadow-md border border-gray-300 transform transition-all hover:scale-105 hover:shadow-2xl hover:bg-purple-100"
                             >
                                 <img
-                                    src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505"
+                                    src={recipe.image}
                                     alt={recipe.name}
                                     className="w-full h-40 object-cover rounded-md mb-3 transition-transform duration-300"
                                 />
