@@ -33,9 +33,9 @@ export default function RecipeFinder() {
     };
 
     return (
-        <div className="w-screen bg-gradient-to-r from-purple-200 to-teal-200 flex flex-col items-center justify-center md:p-10 p-4">
+        <div className="min-h-screen w-screen bg-gradient-to-r from-purple-200 to-teal-200 flex flex-col items-center md:p-10 p-4">
             <h1 className="text-5xl font-extrabold text-purple-700 mb-8 animate-bounce">Recipe Finder</h1>
-    
+
             <div className="w-full max-w-lg">
                 <input
                     type="text"
@@ -51,12 +51,21 @@ export default function RecipeFinder() {
                     {loading ? 'Loading...' : 'Find Recipes'}
                 </button>
             </div>
-    
-            {error && (
-                <p className="text-red-500 mt-4 animate-shake">{error}</p>
+
+            {error && <p className="text-red-500 mt-4 animate-shake">{error}</p>}
+
+            {loading && (
+                <div className="w-full mt-8">
+                    <h2 className="text-3xl text-center font-semibold mb-4 text-teal-700">Loading Recipes...</h2>
+                    <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {Array.from({ length: 6 }).map((_, index) => (
+                            <ShimmerCard key={index} />
+                        ))}
+                    </ul>
+                </div>
             )}
-    
-            {recipes.length > 0 && (
+
+            {!loading && recipes.length > 0 && (
                 <div className="w-full mt-8">
                     <h2 className="text-3xl text-center font-semibold mb-4 text-teal-700">Recipe Suggestions:</h2>
                     <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -70,11 +79,7 @@ export default function RecipeFinder() {
                                     alt={recipe.name}
                                     className="w-full h-40 object-cover rounded-md mb-3 transition-transform duration-300"
                                 />
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-teal-500 font-bold text-lg hover:underline"
-                                >
+                                <a target="_blank" rel="noopener noreferrer" className="text-teal-500 font-bold text-lg hover:underline">
                                     {recipe.name}
                                 </a>
                                 <p className="text-gray-600 mt-1">{recipe.description}</p>
@@ -86,12 +91,21 @@ export default function RecipeFinder() {
                     </ul>
                 </div>
             )}
-    
-            {recipes.length === 0 && !loading && !error && (
+
+            {!loading && recipes.length === 0 && !error && (
                 <p className="text-gray-500 mt-4 animate-fade-in">No recipes found for the given ingredients.</p>
             )}
         </div>
     );
-    
-
 }
+
+
+const ShimmerCard = () => {
+    return (
+        <div className="bg-gray-300 animate-pulse p-4 rounded-lg shadow-md border border-gray-400">
+            <div className="w-full h-40 bg-gray-400 rounded-md mb-3"></div>
+            <div className="h-6 w-3/4 bg-gray-400 rounded-md mb-2"></div>
+            <div className="h-4 w-2/3 bg-gray-400 rounded-md"></div>
+        </div>
+    );
+};
