@@ -35,7 +35,7 @@ export default function RecipeFinder() {
     return (
         <div className="min-h-screen w-screen bg-gradient-to-r from-purple-200 to-teal-200 flex flex-col items-center md:p-10 p-4">
             <h1 className="text-5xl font-extrabold text-purple-700 mb-8 animate-bounce">Recipe Finder</h1>
-
+    
             <div className="w-full max-w-lg">
                 <input
                     type="text"
@@ -44,16 +44,24 @@ export default function RecipeFinder() {
                     placeholder="Enter ingredients (comma separated) like tomato, salt, pepper, water"
                     className="w-full p-4 border border-gray-400 rounded-lg mb-4 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:animate-pulse"
                 />
+    
                 <button
                     onClick={fetchRecipes}
                     className="w-full bg-purple-500 cursor-pointer text-white py-3 rounded-lg hover:bg-purple-600 hover:scale-105 transition-all duration-300 ease-in-out"
                 >
                     {loading ? 'Loading...' : 'Find Recipes'}
                 </button>
+    
+                
+                {loading && !error && (
+                    <p className="text-yellow-500 mt-4 text-center font-semibold">
+                        Backend is taking time to fetch the recipes. Please wait...
+                    </p>
+                )}
             </div>
-
+    
             {error && <p className="text-red-500 mt-4 animate-shake">{error}</p>}
-
+    
             {loading && (
                 <div className="w-full mt-8">
                     <h2 className="text-3xl text-center font-semibold mb-4 text-teal-700">Loading Recipes...</h2>
@@ -64,7 +72,7 @@ export default function RecipeFinder() {
                     </ul>
                 </div>
             )}
-
+    
             {!loading && recipes.length > 0 && (
                 <div className="w-full mt-8">
                     <h2 className="text-3xl text-center font-semibold mb-4 text-teal-700">Recipe Suggestions:</h2>
@@ -91,12 +99,13 @@ export default function RecipeFinder() {
                     </ul>
                 </div>
             )}
-
+    
             {!loading && recipes.length === 0 && !error && (
                 <p className="text-gray-500 mt-4 animate-fade-in">No recipes found for the given ingredients.</p>
             )}
         </div>
     );
+    
 }
 
 
